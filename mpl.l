@@ -17,6 +17,8 @@ Z|Q                         return TYPE;
 
 !                           return ECPHONEME;
 
+EXIT                        return EXIT;
+
 \n                          /* ignore end of line */;
 [ \t]+                      /* ignore whitespace */;
 

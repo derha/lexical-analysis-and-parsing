@@ -5,6 +5,7 @@
 void yyerror(const char *str)
 {
 	fprintf(stderr, "error: %s\n", str);
+	exit(0);
 }
 
 int yywrap()
@@ -15,10 +16,12 @@ int yywrap()
 int main()
 {
 	yyparse();
+	printf("OK!\n");
+	return 0;
 }
 %}
 
-%token TYPE VAR FLOAT INTEGER WALRUS ECPHONEME
+%token TYPE VAR FLOAT INTEGER WALRUS ECPHONEME EXIT
 
 %%
 
@@ -29,6 +32,7 @@ statements:
 statement:
       declaration
     | assignment
+    | EXIT ECPHONEME
     ;
 
 declaration:
