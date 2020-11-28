@@ -37,6 +37,10 @@ EXIT                        return EXIT;
 DECLARATION                 return DECLARATION;
 MAIN                        return MAIN;
 END                         return END;
+IN                          return IN;
+OUT                         return OUT;
+
+^#.*#$                      return COMMENT;
 
 \n                          /* ignore end of line */;
 [ \t]+                      /* ignore whitespace */;

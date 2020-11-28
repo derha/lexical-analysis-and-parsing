@@ -20,7 +20,7 @@ int main()
 }
 %}
 
-%token EXIT DECLARATION MAIN END
+%token EXIT DECLARATION MAIN END COMMENT IN OUT
 %token TYPE VAR WALRUS ECPHONEME LBRACE RBRACE
 %token INTEGER FLOAT CHARACTER
 %token OR AND G GE L LE NE E
@@ -39,6 +39,7 @@ declarations:
 
 declaration:
       TYPE VAR ECPHONEME
+    | COMMENT
     ;
 
 statements:
@@ -49,10 +50,13 @@ statements:
 statement:
       assignment
     | EXIT ECPHONEME
+    | COMMENT
+    | OUT or_expr ECPHONEME
     ;
 
 assignment:
       VAR WALRUS or_expr ECPHONEME
+    | VAR WALRUS IN ECPHONEME
     ;
 
 or_expr:
