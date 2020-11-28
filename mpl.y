@@ -1,5 +1,4 @@
 %{
-#include <string.h>
 #include <stdio.h>
 
 void yyerror(const char *str)
@@ -21,30 +20,81 @@ int main()
 }
 %}
 
-%token TYPE VAR FLOAT INTEGER WALRUS ECPHONEME EXIT
+%token EXIT DECLARATION MAIN END
+%token TYPE VAR WALRUS ECPHONEME LBRACE RBRACE
+%token INTEGER FLOAT CHARACTER
+%token OR AND G GE L LE NE E
+%token MULT DIV PLUS MINUS
 
 %%
 
-statements:
-   	| statements statement
-	;
+program:
+    | DECLARATION declarations MAIN statements END
+    ;
 
-statement:
+declarations:
       declaration
-    | assignment
-    | EXIT ECPHONEME
+    | declaration declarations
     ;
 
 declaration:
-      TYPE VAR WALRUS expression ECPHONEME
-    | TYPE VAR ECPHONEME
+      TYPE VAR ECPHONEME
+    ;
+
+statements:
+      statement
+   	| statement statements
+	;
+
+statement:
+      assignment
+    | EXIT ECPHONEME
     ;
 
 assignment:
-    VAR WALRUS expression ECPHONEME
+      VAR WALRUS or_expr ECPHONEME
     ;
 
-expression:
+or_expr:
+      or_expr OR and_expr
+    | and_expr
+    ;
+
+and_expr:
+      and_expr AND comp
+    | comp
+    ;
+
+comp:
+      comp G expr
+    | comp GE expr
+    | comp L expr
+    | comp LE expr
+    | comp E expr
+    | comp NE expr
+    | expr
+    ;
+
+expr:
+      expr PLUS term
+    | expr MINUS term
+    | term
+    ;
+
+term:
+      term MULT factor
+    | term DIV factor
+    | factor
+    ;
+
+factor:
+      LBRACE or_expr RBRACE
+    | VAR
+    | const
+    ;
+
+const:
       INTEGER
     | FLOAT
+    | CHARACTER
     ;
