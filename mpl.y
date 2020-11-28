@@ -26,6 +26,12 @@ int main()
 %token OR AND G GE L LE NE E
 %token MULT DIV PLUS MINUS
 
+%left OR
+%left AND
+%left G GE L LE NE E
+%left PLUS MINUS
+%left MULT DIV
+
 %%
 
 program:
@@ -51,50 +57,30 @@ statement:
       assignment
     | EXIT ECPHONEME
     | COMMENT
-    | OUT or_expr ECPHONEME
+    | OUT expression ECPHONEME
     ;
 
 assignment:
-      VAR WALRUS or_expr ECPHONEME
+      VAR WALRUS expression ECPHONEME
     | VAR WALRUS IN ECPHONEME
     ;
 
-or_expr:
-      or_expr OR and_expr
-    | and_expr
-    ;
-
-and_expr:
-      and_expr AND comp
-    | comp
-    ;
-
-comp:
-      comp G expr
-    | comp GE expr
-    | comp L expr
-    | comp LE expr
-    | comp E expr
-    | comp NE expr
-    | expr
-    ;
-
-expr:
-      expr PLUS term
-    | expr MINUS term
-    | term
-    ;
-
-term:
-      term MULT factor
-    | term DIV factor
-    | factor
-    ;
-
-factor:
-      LBRACE or_expr RBRACE
+expression:
+      const
     | VAR
-    | const
+    | expression OR expression
+    | expression AND expression
+    | expression G expression
+    | expression GE expression
+    | expression L expression
+    | expression LE expression
+    | expression E expression
+    | expression NE expression
+    | expression PLUS expression
+    | expression MINUS expression
+    | expression MULT expression
+    | expression DIV expression
+    | LBRACE expression RBRACE
     ;
 
 const:
