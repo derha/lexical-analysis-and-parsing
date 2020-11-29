@@ -16,6 +16,7 @@ void yyerror(const char *str)
 %token INTEGER FLOAT CHARACTER
 %token OR AND G GE L LE NE E
 %token MULT DIV PLUS MINUS
+%token LBRACKET RBRACKET THEN ELSETHEN ELSE WHENEVER DONE
 
 %left OR
 %left AND
@@ -49,6 +50,8 @@ statement:
     | EXIT ECPHONEME
     | COMMENT
     | OUT expression ECPHONEME
+    | conditional
+    | whenever
     ;
 
 assignment:
@@ -78,6 +81,21 @@ const:
       INTEGER
     | FLOAT
     | CHARACTER
+    ;
+
+conditional:
+      LBRACKET expression RBRACKET THEN
+      statements
+      DONE
+    | LBRACKET expression RBRACKET THEN
+      statements
+      ELSE
+      statements
+      DONE
+    ;
+
+whenever:
+    WHENEVER LBRACKET expression RBRACKET statements DONE
     ;
 
 %%
