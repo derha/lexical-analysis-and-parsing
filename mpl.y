@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
 
 void yyerror(const char *str)
 {
@@ -7,17 +8,7 @@ void yyerror(const char *str)
 	exit(0);
 }
 
-int yywrap()
-{
-	return 1;
-}
 
-int main()
-{
-	yyparse();
-	printf("OK!\n");
-	return 0;
-}
 %}
 
 %token EXIT DECLARATION MAIN END COMMENT IN OUT
@@ -88,3 +79,12 @@ const:
     | FLOAT
     | CHARACTER
     ;
+
+%%
+
+int main()
+{
+	yyparse();
+	printf("OK!\n");
+	return 0;
+}

@@ -46,3 +46,8 @@ OUT                         return OUT;
 [ \t]+                      /* ignore whitespace */;
 
 %%
+
+int yywrap()
+{
+	return 1;
+}
