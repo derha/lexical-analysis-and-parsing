@@ -42,6 +42,14 @@ OUT                         return OUT;
 
 ^#.*#$                      return COMMENT;
 
+"]"                         return RBRACKET;
+"["                         return LBRACKET;
+"->"                        return THEN;
+"-->"                       return ELSETHEN;
+"--"                        return ELSE;
+WHENEVER                    return WHENEVER;
+DONE                        return DONE;
+
 \n                          /* ignore end of line */;
 [ \t]+                      /* ignore whitespace */;
 
