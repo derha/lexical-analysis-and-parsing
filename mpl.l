@@ -8,7 +8,7 @@
 
 Z|Q|CHAR                    return TYPE;
 
-[a-z][a-z0-9_]*             return VAR;
+[a-z_][a-z0-9_]*            return VAR;
 
 ":="                        return WALRUS;
 "\\/"                       return OR;
@@ -45,7 +45,6 @@ OUT                         return OUT;
 "]"                         return RBRACKET;
 "["                         return LBRACKET;
 "->"                        return THEN;
-"-->"                       return ELSETHEN;
 "--"                        return ELSE;
 WHENEVER                    return WHENEVER;
 DONE                        return DONE;

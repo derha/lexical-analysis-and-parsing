@@ -8,7 +8,6 @@ void yyerror(const char *str)
 	exit(0);
 }
 
-
 %}
 
 %token EXIT DECLARATION MAIN END COMMENT IN OUT
@@ -16,7 +15,7 @@ void yyerror(const char *str)
 %token INTEGER FLOAT CHARACTER
 %token OR AND G GE L LE NE E
 %token MULT DIV PLUS MINUS
-%token LBRACKET RBRACKET THEN ELSETHEN ELSE WHENEVER DONE
+%token LBRACKET RBRACKET THEN ELSE WHENEVER DONE
 
 %left OR
 %left AND
